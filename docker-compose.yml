@@ -1,0 +1,30 @@
+version: "3.1"
+
+services:
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 3000:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: nerdiesexampleuser
+      WORDPRESS_DB_PASSWORD: nerdiesexamplepass
+      WORDPRESS_DB_NAME: nerdiesexampledb
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: nerdiesexampledb
+      MYSQL_USER: nerdiesexampleuser
+      MYSQL_PASSWORD: nerdiesexamplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
